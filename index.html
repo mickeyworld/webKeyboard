@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ESP32-S3 MiniPad</title>
+    <style>
+        body { font-family: sans-serif; background: #282c34; color: #abb2bf; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; touch-action: manipulation; }
+        .status { margin-bottom: 20px; padding: 10px 15px; border-radius: 8px; background: #3e4451; color: #61afef; font-size: 1.1em; }
+        .button-group { display: flex; gap: 15px; margin-bottom: 20px; }
+        button {
+            width: 120px; height: 80px; background: #61afef; color: white; border: none; border-radius: 12px;
+            font-size: 1.5em; font-weight: bold; cursor: pointer; transition: background 0.2s ease;
+            user-select: none; -webkit-user-select: none; /* スマホでの選択無効化 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        button:active { background: #528bff; transform: translateY(2px); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); }
+        #connectBtn { background: #98c379; }
+        #connectBtn:active { background: #82b260; }
+        .log-area { font-size: 0.9em; color: #56b6c2; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div id="status" class="status">Disconnected</div>
+<button id="connectBtn">Connect ESP32</button>
+
+<div class="button-group">
+    <button ontouchstart="send('+CTRL')" ontouchend="send('-CTRL')">Ctrl</button>
+    <button ontouchstart="send('+v')" ontouchend="send('-v')">V</button>
+    <button ontouchstart="send('+ENTER')" ontouchend="send('-ENTER')">Enter</button>
+</div>
+
+<div id="log" class="log-area"></div>
+
+<script>
+let charWrite;
+const SERVICE_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
+const CHAR_UUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8";
+
+document.getElementById('connectBtn').addEventListener('click', async () => {
+    log("接続中...");
+    try {
+        const device = await navigator.bluetooth.requestDevice({
+            filters: [{ name: 'ESP32S3_HID_Bridge' }],
+            optionalServices: [SERVICE_UUID]
+        });
+        const server = await device.gatt.connect();
+        const service = await server.getPrimaryService(SERVICE_UUID);
+        charWrite = await service.getCharacteristic(CHAR_UUID);
+        document.getElementById('status').innerText = "Connected to: " + device.name;
+        document.getElementById('status').style.backgroundColor = "#98c379"; // 接続成功で緑に
+        log("接続成功！");
+    } catch (err) {
+        console.error("Connection Error: ", err);
+        document.getElementById('status').innerText = "Connection Failed";
+        document.getElementById('status').style.backgroundColor = "#e06c75"; // 接続失敗で赤に
+        log("接続エラー: " + err.message);
+    }
+});
+
+async function send(msg) {
+    if (!charWrite) {
+        log("エラー: ESP32に接続されていません。");
+        return;
+    }
+    try {
+        const encoder = new TextEncoder();
+        await charWrite.writeValueWithoutResponse(encoder.encode(msg));
+        log("Sent: " + msg);
+    } catch (e) {
+        console.error("Send Error: ", e);
+        log("送信エラー: " + e.message);
+    }
+}
+
+function log(message) {
+    document.getElementById('log').innerText = new Date().toLocaleTimeString() + " - " + message;
+}
+</script>
+</body>
+</html>
