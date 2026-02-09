@@ -2,81 +2,186 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ESP32-S3 MiniPad</title>
+    <title>Keychron K8 Max Full Layout</title>
     <style>
-        body { font-family: sans-serif; background: #282c34; color: #abb2bf; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; touch-action: manipulation; }
-        .status { margin-bottom: 20px; padding: 10px 15px; border-radius: 8px; background: #3e4451; color: #61afef; font-size: 1.1em; }
-        .button-group { display: flex; gap: 15px; margin-bottom: 20px; }
-        button {
-            width: 120px; height: 80px; background: #61afef; color: white; border: none; border-radius: 12px;
-            font-size: 1.5em; font-weight: bold; cursor: pointer; transition: background 0.2s ease;
-            user-select: none; -webkit-user-select: none; /* スマホでの選択無効化 */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        :root {
+            --case: #222225;
+            --key-main: #3a3a3c;    /* アルファベット・数字 */
+            --key-mod: #2c2c2e;     /* 修飾キー */
+            --key-accent: #d43f33;  /* Esc */
+            --text: #ffffff;
+            --sub: #aaaaaa;
+            --gap: 5px;
         }
-        button:active { background: #528bff; transform: translateY(2px); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); }
-        #connectBtn { background: #98c379; }
-        #connectBtn:active { background: #82b260; }
-        .log-area { font-size: 0.9em; color: #56b6c2; margin-top: 20px; }
+        body {
+            background: #0d0d0d; color: var(--text); font-family: 'Segoe UI', sans-serif;
+            display: flex; flex-direction: column; align-items: center; padding: 30px; margin: 0;
+            min-width: 1100px;
+        }
+        .status-bar { width: 1000px; display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 13px; }
+        #connectBtn { background: #333; border: 1px solid #555; color: white; padding: 6px 15px; border-radius: 4px; cursor: pointer; }
+
+        /* キーボード筐体 */
+        .k8-board {
+            background: var(--case); padding: 20px; border-radius: 12px;
+            display: grid;
+            grid-template-columns: repeat(80, 12px); /* 12px単位で緻密に幅を管理 */
+            gap: var(--gap);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        }
+
+        /* 共通キー設定 */
+        .key {
+            background: var(--key-main); border-radius: 6px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            font-size: 11px; font-weight: 600; height: 52px; cursor: pointer; user-select: none;
+            grid-column: span 4; /* 基本 1U = 4ユニット */
+            border-bottom: 3px solid #1a1a1a; transition: 0.05s;
+        }
+        .key:active { transform: translateY(2px); border-bottom-width: 1px; background: #555; }
+        .key span.sub { font-size: 9px; color: var(--sub); margin-bottom: 2px; }
+
+        /* 特殊キーの幅（1U = 4ユニット基準） */
+        .u1-25 { grid-column: span 5; }  /* Ctrl, Win, Alt... */
+        .u1-5  { grid-column: span 6; }  /* Tab, Backslash */
+        .u1-75 { grid-column: span 7; }  /* CapsLock */
+        .u2    { grid-column: span 8; }  /* Backspace */
+        .u2-25 { grid-column: span 9; }  /* Enter, L-Shift */
+        .u2-75 { grid-column: span 11; } /* R-Shift */
+        .u6-25 { grid-column: span 25; } /* Spacebar */
+
+        /* 特殊カラー */
+        .esc { background: var(--key-accent); border-bottom-color: #8b2a22; }
+        .mod { background: var(--key-mod); }
+
+        /* 隙間（セパレーション） */
+        .sp-f-esc { grid-column: span 4; }
+        .sp-f-f4-f5 { grid-column: span 2; }
+        .sp-f-f8-f9 { grid-column: span 2; }
+        .sp-nav { grid-column: span 4; } /* メインとナビゲーションの間の大きな隙間 */
+        .sp-nav-right { grid-column: span 4; } /* ナビゲーションの右の大きな隙間 */
+        .sp-none { grid-column: span 4; visibility: hidden; } /* アローキー周りの空き */
     </style>
 </head>
 <body>
 
-<div id="status" class="status">Disconnected</div>
-<button id="connectBtn">Connect ESP32</button>
-
-<div class="button-group">
-    <button ontouchstart="send('+CTRL')" ontouchend="send('-CTRL')">Ctrl</button>
-    <button ontouchstart="send('+v')" ontouchend="send('-v')">V</button>
-    <button ontouchstart="send('+ENTER')" ontouchend="send('-ENTER')">Enter</button>
+<div class="status-bar">
+    <div id="status">K8 MAX: DISCONNECTED</div>
+    <button id="connectBtn">CONNECT ESP32</button>
 </div>
 
-<div id="log" class="log-area"></div>
+<div class="k8-board">
+    <div class="key esc" onmousedown="send('+ESC')" onmouseup="send('-ESC')">Esc</div>
+    <div class="sp-f-esc"></div>
+    <div class="key" onmousedown="send('+F1')" onmouseup="send('-F1')">F1</div>
+    <div class="key" onmousedown="send('+F2')" onmouseup="send('-F2')">F2</div>
+    <div class="key" onmousedown="send('+F3')" onmouseup="send('-F3')">F3</div>
+    <div class="key" onmousedown="send('+F4')" onmouseup="send('-F4')">F4</div>
+    <div class="sp-f-f4-f5"></div>
+    <div class="key" onmousedown="send('+F5')" onmouseup="send('-F5')">F5</div>
+    <div class="key" onmousedown="send('+F6')" onmouseup="send('-F6')">F6</div>
+    <div class="key" onmousedown="send('+F7')" onmouseup="send('-F7')">F7</div>
+    <div class="key" onmousedown="send('+F8')" onmouseup="send('-F8')">F8</div>
+    <div class="sp-f-f8-f9"></div>
+    <div class="key" onmousedown="send('+F9')" onmouseup="send('-F9')">F9</div>
+    <div class="key" onmousedown="send('+F10')" onmouseup="send('-F10')">F10</div>
+    <div class="key" onmousedown="send('+F11')" onmouseup="send('-F11')">F11</div>
+    <div class="key" onmousedown="send('+F12')" onmouseup="send('-F12')">F12</div>
+    <div class="sp-nav"></div>
+    <div class="key mod" onmousedown="send('+PS')">📸</div>
+    <div class="key mod" onmousedown="send('+SL')">🏠</div>
+    <div class="key mod" onmousedown="send('+LIGHT')">💡</div>
+    <div class="sp-nav-right"></div>
+
+    <div class="key mod" onmousedown="send('+\`')" onmouseup="send('-\`')"><span class="sub">~</span>`</div>
+    <div class="key" onmousedown="send('+1')"><span class="sub">!</span>1</div>
+    <div class="key" onmousedown="send('+2')"><span class="sub">@</span>2</div>
+    <div class="key" onmousedown="send('+3')"><span class="sub">#</span>3</div>
+    <div class="key" onmousedown="send('+4')"><span class="sub">$</span>4</div>
+    <div class="key" onmousedown="send('+5')"><span class="sub">%</span>5</div>
+    <div class="key" onmousedown="send('+6')"><span class="sub">^</span>6</div>
+    <div class="key" onmousedown="send('+7')"><span class="sub">&</span>7</div>
+    <div class="key" onmousedown="send('+8')"><span class="sub">*</span>8</div>
+    <div class="key" onmousedown="send('+9')"><span class="sub">(</span>9</div>
+    <div class="key" onmousedown="send('+0')"><span class="sub">)</span>0</div>
+    <div class="key" onmousedown="send('+MINUS')"><span class="sub">_</span>-</div>
+    <div class="key" onmousedown="send('+EQUAL')"><span class="sub">+</span>=</div>
+    <div class="key mod u2" onmousedown="send('+BS')">Backspace</div>
+    <div class="sp-nav"></div>
+    <div class="key mod" onmousedown="send('+INS')">Ins</div>
+    <div class="key mod" onmousedown="send('+HOME')">Home</div>
+    <div class="key mod" onmousedown="send('+PU')">PgUp</div>
+    <div class="sp-nav-right"></div>
+    
+    <div class="key mod u1-5" onmousedown="send('+TAB')">Tab</div>
+    <div class="key">Q</div><div class="key">W</div><div class="key">E</div><div class="key">R</div>
+    <div class="key">T</div><div class="key">Y</div><div class="key">U</div><div class="key">I</div>
+    <div class="key">O</div><div class="key">P</div>
+    <div class="key"><span class="sub">{</span>[</div><div class="key"><span class="sub">}</span>]</div>
+    <div class="key mod u1-5"><span class="sub">|</span>\</div>
+    <div class="sp-nav"></div>
+    <div class="key mod" onmousedown="send('+DEL')">Del</div>
+    <div class="key mod" onmousedown="send('+END')">End</div>
+    <div class="key mod" onmousedown="send('+PD')">PgDn</div>
+    <div class="sp-nav-right"></div>
+
+    <div class="key mod u1-75" onmousedown="send('+CAPS')">Caps</div>
+    <div class="key">A</div><div class="key">S</div><div class="key">D</div><div class="key">F</div>
+    <div class="key">G</div><div class="key">H</div><div class="key">J</div><div class="key">K</div>
+    <div class="key">L</div><div class="key"><span class="sub">:</span>;</div>
+    <div class="key"><span class="sub">"</span>'</div>
+    <div class="key mod u2-25" onmousedown="send('+ENT')">Enter</div>
+    <div class="sp-nav"></div>
+    <div style="grid-column: span 12; visibility: hidden;"></div>
+
+    <div class="key mod u2-25" onmousedown="send('+LSFT')">Shift</div>
+    <div class="key">Z</div><div class="key">X</div><div class="key">C</div><div class="key">V</div>
+    <div class="key">B</div><div class="key">N</div><div class="key">M</div>
+    <div class="key"><span class="sub">&lt;</span>,</div><div class="key"><span class="sub">&gt;</span>.</div>
+    <div class="key"><span class="sub">?</span>/</div>
+    <div class="key mod u2-75" onmousedown="send('+RSFT')">Shift</div>
+    <div class="sp-nav"></div>
+    <div class="sp-none"></div>
+    <div class="key mod" onmousedown="send('+U')">↑</div>
+    <div class="sp-none"></div>
+
+    <div class="key mod u1-25" onmousedown="send('+LCTL')">Ctrl</div>
+    <div class="key mod u1-25" onmousedown="send('+LALT')">Alt</div>
+    <div class="key mod u1-25" onmousedown="send('+LGUI')">Win</div>
+    <div class="key u6-25" onmousedown="send('+SPC')">Space</div>
+    <div class="key mod u1-25" onmousedown="send('+LGUI')">Win</div>
+    <div class="key mod u1-25" onmousedown="send('+RALT')">Alt</div>
+    <div class="key mod u1-25" onmousedown="send('+FN')">Fn</div>
+    <div class="key mod u1-25" onmousedown="send('+RCTL')">Ctrl</div>
+    <div class="sp-nav"></div>
+    <div class="key mod" onmousedown="send('+L')">←</div>
+    <div class="key mod" onmousedown="send('+D')">↓</div>
+    <div class="key mod" onmousedown="send('+R')">→</div>
+</div>
 
 <script>
-let charWrite;
-const SERVICE_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
-const CHAR_UUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8";
+    let charWrite;
+    const SERVICE_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
+    const CHAR_UUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8";
 
-document.getElementById('connectBtn').addEventListener('click', async () => {
-    log("接続中...");
-    try {
-        const device = await navigator.bluetooth.requestDevice({
-            filters: [{ name: 'ESP32S3_HID_Bridge' }],
-            optionalServices: [SERVICE_UUID]
-        });
-        const server = await device.gatt.connect();
-        const service = await server.getPrimaryService(SERVICE_UUID);
-        charWrite = await service.getCharacteristic(CHAR_UUID);
-        document.getElementById('status').innerText = "Connected to: " + device.name;
-        document.getElementById('status').style.backgroundColor = "#98c379"; // 接続成功で緑に
-        log("接続成功！");
-    } catch (err) {
-        console.error("Connection Error: ", err);
-        document.getElementById('status').innerText = "Connection Failed";
-        document.getElementById('status').style.backgroundColor = "#e06c75"; // 接続失敗で赤に
-        log("接続エラー: " + err.message);
-    }
-});
+    document.getElementById('connectBtn').addEventListener('click', async () => {
+        try {
+            const device = await navigator.bluetooth.requestDevice({
+                filters: [{ name: 'ESP32S3_HID_Bridge' }],
+                optionalServices: [SERVICE_UUID]
+            });
+            const server = await device.gatt.connect();
+            const service = await server.getPrimaryService(SERVICE_UUID);
+            charWrite = await service.getCharacteristic(CHAR_UUID);
+            document.getElementById('status').innerText = "K8 MAX: CONNECTED";
+            document.getElementById('status').style.color = "#4CAF50";
+        } catch (e) { document.getElementById('status').innerText = "ERROR"; }
+    });
 
-async function send(msg) {
-    if (!charWrite) {
-        log("エラー: ESP32に接続されていません。");
-        return;
+    async function send(msg) {
+        if (!charWrite) return;
+        try { await charWrite.writeValueWithoutResponse(new TextEncoder().encode(msg)); } catch (e) {}
     }
-    try {
-        const encoder = new TextEncoder();
-        await charWrite.writeValueWithoutResponse(encoder.encode(msg));
-        log("Sent: " + msg);
-    } catch (e) {
-        console.error("Send Error: ", e);
-        log("送信エラー: " + e.message);
-    }
-}
-
-function log(message) {
-    document.getElementById('log').innerText = new Date().toLocaleTimeString() + " - " + message;
-}
 </script>
 </body>
 </html>
