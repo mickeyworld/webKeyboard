@@ -37,6 +37,7 @@
             font-size: 11px; font-weight: 600; height: 52px; cursor: pointer; user-select: none;
             grid-column: span 4; /* 基本 1U = 4ユニット */
             border-bottom: 3px solid #1a1a1a; transition: 0.05s;
+            touch-action: manipulation; /* スマホでのズーム防止 */
         }
         .key:active { transform: translateY(2px); border-bottom-width: 1px; background: #555; }
         .key span.sub { font-size: 9px; color: var(--sub); margin-bottom: 2px; }
@@ -71,113 +72,113 @@
 </div>
 
 <div class="k8-board">
-    <div class="key esc" onmousedown="send('+ESC')" onmouseup="send('-ESC')">Esc</div>
+    <div class="key esc" onpointerdown="send('+ESC')" onpointerup="send('-ESC')">Esc</div>
     <div class="sp-f-esc"></div>
-    <div class="key" onmousedown="send('+F1')" onmouseup="send('-F1')">F1</div>
-    <div class="key" onmousedown="send('+F2')" onmouseup="send('-F2')">F2</div>
-    <div class="key" onmousedown="send('+F3')" onmouseup="send('-F3')">F3</div>
-    <div class="key" onmousedown="send('+F4')" onmouseup="send('-F4')">F4</div>
+    <div class="key" onpointerdown="send('+F1')" onpointerup="send('-F1')">F1</div>
+    <div class="key" onpointerdown="send('+F2')" onpointerup="send('-F2')">F2</div>
+    <div class="key" onpointerdown="send('+F3')" onpointerup="send('-F3')">F3</div>
+    <div class="key" onpointerdown="send('+F4')" onpointerup="send('-F4')">F4</div>
     <div class="sp-f-f4-f5"></div>
-    <div class="key" onmousedown="send('+F5')" onmouseup="send('-F5')">F5</div>
-    <div class="key" onmousedown="send('+F6')" onmouseup="send('-F6')">F6</div>
-    <div class="key" onmousedown="send('+F7')" onmouseup="send('-F7')">F7</div>
-    <div class="key" onmousedown="send('+F8')" onmouseup="send('-F8')">F8</div>
+    <div class="key" onpointerdown="send('+F5')" onpointerup="send('-F5')">F5</div>
+    <div class="key" onpointerdown="send('+F6')" onpointerup="send('-F6')">F6</div>
+    <div class="key" onpointerdown="send('+F7')" onpointerup="send('-F7')">F7</div>
+    <div class="key" onpointerdown="send('+F8')" onpointerup="send('-F8')">F8</div>
     <div class="sp-f-f8-f9"></div>
-    <div class="key" onmousedown="send('+F9')" onmouseup="send('-F9')">F9</div>
-    <div class="key" onmousedown="send('+F10')" onmouseup="send('-F10')">F10</div>
-    <div class="key" onmousedown="send('+F11')" onmouseup="send('-F11')">F11</div>
-    <div class="key" onmousedown="send('+F12')" onmouseup="send('-F12')">F12</div>
+    <div class="key" onpointerdown="send('+F9')" onpointerup="send('-F9')">F9</div>
+    <div class="key" onpointerdown="send('+F10')" onpointerup="send('-F10')">F10</div>
+    <div class="key" onpointerdown="send('+F11')" onpointerup="send('-F11')">F11</div>
+    <div class="key" onpointerdown="send('+F12')" onpointerup="send('-F12')">F12</div>
     <div class="sp-nav"></div>
-    <div class="key mod" onmousedown="send('+PRINT_SCREEN')" onmouseup="send('-PRINT_SCREEN')">📸</div>
-    <div class="key mod" onmousedown="send('+SL')" onmouseup="send('-SL')">🎤</div>
-    <div class="key mod" onmousedown="send('+LIGHT')" onmouseup="send('-LIGHT')">💡</div>
+    <div class="key mod" onpointerdown="send('+PRINT_SCREEN')" onpointerup="send('-PRINT_SCREEN')">📸</div>
+    <div class="key mod" onpointerdown="send('+SL')" onpointerup="send('-SL')">🎤</div>
+    <div class="key mod" onpointerdown="send('+LIGHT')" onpointerup="send('-LIGHT')">💡</div>
     <div class="sp-nav-right"></div>
 
-    <div class="key mod" onmousedown="send('+\`')" onmouseup="send('-\`')"><span class="sub">~</span>`</div>
-    <div class="key" onmousedown="send('+1')" onmouseup="send('-1')"><span class="sub">!</span>1</div>
-    <div class="key" onmousedown="send('+2')" onmouseup="send('-2')"><span class="sub">@</span>2</div>
-    <div class="key" onmousedown="send('+3')" onmouseup="send('-3')"><span class="sub">#</span>3</div>
-    <div class="key" onmousedown="send('+4')" onmouseup="send('-4')"><span class="sub">$</span>4</div>
-    <div class="key" onmousedown="send('+5')" onmouseup="send('-5')"><span class="sub">%</span>5</div>
-    <div class="key" onmousedown="send('+6')" onmouseup="send('-6')"><span class="sub">^</span>6</div>
-    <div class="key" onmousedown="send('+7')" onmouseup="send('-7')"><span class="sub">&</span>7</div>
-    <div class="key" onmousedown="send('+8')" onmouseup="send('-8')"><span class="sub">*</span>8</div>
-    <div class="key" onmousedown="send('+9')" onmouseup="send('-9')"><span class="sub">(</span>9</div>
-    <div class="key" onmousedown="send('+0')" onmouseup="send('-0')"><span class="sub">)</span>0</div>
-    <div class="key" onmousedown="send('+-')" onmouseup="send('--')"><span class="sub">_</span>-</div>
-    <div class="key" onmousedown="send('+=')" onmouseup="send('-=')"><span class="sub">+</span>=</div>
-    <div class="key mod u2" onmousedown="send('+BACKSPACE')" onmouseup="send('-BACKSPACE')">Backspace</div>
+    <div class="key mod" onpointerdown="send('+\`')" onpointerup="send('-\`')"><span class="sub">~</span>`</div>
+    <div class="key" onpointerdown="send('+1')" onpointerup="send('-1')"><span class="sub">!</span>1</div>
+    <div class="key" onpointerdown="send('+2')" onpointerup="send('-2')"><span class="sub">@</span>2</div>
+    <div class="key" onpointerdown="send('+3')" onpointerup="send('-3')"><span class="sub">#</span>3</div>
+    <div class="key" onpointerdown="send('+4')" onpointerup="send('-4')"><span class="sub">$</span>4</div>
+    <div class="key" onpointerdown="send('+5')" onpointerup="send('-5')"><span class="sub">%</span>5</div>
+    <div class="key" onpointerdown="send('+6')" onpointerup="send('-6')"><span class="sub">^</span>6</div>
+    <div class="key" onpointerdown="send('+7')" onpointerup="send('-7')"><span class="sub">&</span>7</div>
+    <div class="key" onpointerdown="send('+8')" onpointerup="send('-8')"><span class="sub">*</span>8</div>
+    <div class="key" onpointerdown="send('+9')" onpointerup="send('-9')"><span class="sub">(</span>9</div>
+    <div class="key" onpointerdown="send('+0')" onpointerup="send('-0')"><span class="sub">)</span>0</div>
+    <div class="key" onpointerdown="send('+-')" onpointerup="send('--')"><span class="sub">_</span>-</div>
+    <div class="key" onpointerdown="send('+=')" onpointerup="send('-=')"><span class="sub">+</span>=</div>
+    <div class="key mod u2" onpointerdown="send('+BACKSPACE')" onpointerup="send('-BACKSPACE')">Backspace</div>
     <div class="sp-nav"></div>
-    <div class="key mod" onmousedown="send('+INSERT')" onmouseup="send('-INSERT')">Ins</div>
-    <div class="key mod" onmousedown="send('+HOME')" onmouseup="send('-HOME')">Home</div>
-    <div class="key mod" onmousedown="send('+PAGE_UP')" onmouseup="send('-PAGE_UP')">PgUp</div>
+    <div class="key mod" onpointerdown="send('+INSERT')" onpointerup="send('-INSERT')">Ins</div>
+    <div class="key mod" onpointerdown="send('+HOME')" onpointerup="send('-HOME')">Home</div>
+    <div class="key mod" onpointerdown="send('+PAGE_UP')" onpointerup="send('-PAGE_UP')">PgUp</div>
     <div class="sp-nav-right"></div>
     
-    <div class="key mod u1-5" onmousedown="send('+TAB')" onmouseup="send('-TAB')">Tab</div>
-    <div class="key" onmousedown="send('+q')" onmouseup="send('-q')">Q</div>
-    <div class="key" onmousedown="send('+w')" onmouseup="send('-w')">W</div>
-    <div class="key" onmousedown="send('+e')" onmouseup="send('-e')">E</div>
-    <div class="key" onmousedown="send('+r')" onmouseup="send('-r')">R</div>
-    <div class="key" onmousedown="send('+t')" onmouseup="send('-t')">T</div>
-    <div class="key" onmousedown="send('+y')" onmouseup="send('-y')">Y</div>
-    <div class="key" onmousedown="send('+u')" onmouseup="send('-u')">U</div>
-    <div class="key" onmousedown="send('+i')" onmouseup="send('-i')">I</div>
-    <div class="key" onmousedown="send('+o')" onmouseup="send('-o')">O</div>
-    <div class="key" onmousedown="send('+p')" onmouseup="send('-p')">P</div>
-    <div class="key" onmousedown="send('+[')" onmouseup="send('-[')"><span class="sub">{</span>[</div>
-    <div class="key" onmousedown="send('+]')" onmouseup="send('-]')"><span class="sub">}</span>]</div>
-    <div class="key mod u1-5" onmousedown="send('+\\')" onmouseup="send('-\\')"><span class="sub">|</span>\</div>
+    <div class="key mod u1-5" onpointerdown="send('+TAB')" onpointerup="send('-TAB')">Tab</div>
+    <div class="key" onpointerdown="send('+q')" onpointerup="send('-q')">Q</div>
+    <div class="key" onpointerdown="send('+w')" onpointerup="send('-w')">W</div>
+    <div class="key" onpointerdown="send('+e')" onpointerup="send('-e')">E</div>
+    <div class="key" onpointerdown="send('+r')" onpointerup="send('-r')">R</div>
+    <div class="key" onpointerdown="send('+t')" onpointerup="send('-t')">T</div>
+    <div class="key" onpointerdown="send('+y')" onpointerup="send('-y')">Y</div>
+    <div class="key" onpointerdown="send('+u')" onpointerup="send('-u')">U</div>
+    <div class="key" onpointerdown="send('+i')" onpointerup="send('-i')">I</div>
+    <div class="key" onpointerdown="send('+o')" onpointerup="send('-o')">O</div>
+    <div class="key" onpointerdown="send('+p')" onpointerup="send('-p')">P</div>
+    <div class="key" onpointerdown="send('+[')" onpointerup="send('-[')"><span class="sub">{</span>[</div>
+    <div class="key" onpointerdown="send('+]')" onpointerup="send('-]')"><span class="sub">}</span>]</div>
+    <div class="key mod u1-5" onpointerdown="send('+\\')" onpointerup="send('-\\')"><span class="sub">|</span>\</div>
     <div class="sp-nav"></div>
-    <div class="key mod" onmousedown="send('+DELETE')" onmouseup="send('-DELETE')">Del</div>
-    <div class="key mod" onmousedown="send('+END')" onmouseup="send('-END')">End</div>
-    <div class="key mod" onmousedown="send('+PAGE_DOWN')" onmouseup="send('-PAGE_DOWN')">PgDn</div>
+    <div class="key mod" onpointerdown="send('+DELETE')" onpointerup="send('-DELETE')">Del</div>
+    <div class="key mod" onpointerdown="send('+END')" onpointerup="send('-END')">End</div>
+    <div class="key mod" onpointerdown="send('+PAGE_DOWN')" onpointerup="send('-PAGE_DOWN')">PgDn</div>
     <div class="sp-nav-right"></div>
 
-    <div class="key mod u1-75" onmousedown="send('+CAPS_LOCK')" onmouseup="send('-CAPS_LOCK')">Caps Lock</div>
-    <div class="key" onmousedown="send('+a')" onmouseup="send('-a')">A</div>
-    <div class="key" onmousedown="send('+s')" onmouseup="send('-s')">S</div>
-    <div class="key" onmousedown="send('+d')" onmouseup="send('-d')">D</div>
-    <div class="key" onmousedown="send('+f')" onmouseup="send('-f')">F</div>
-    <div class="key" onmousedown="send('+g')" onmouseup="send('-g')">G</div>
-    <div class="key" onmousedown="send('+h')" onmouseup="send('-h')">H</div>
-    <div class="key" onmousedown="send('+j')" onmouseup="send('-j')">J</div>
-    <div class="key" onmousedown="send('+k')" onmouseup="send('-k')">K</div>
-    <div class="key" onmousedown="send('+l')" onmouseup="send('-l')">L</div>
-    <div class="key" onmousedown="send('+;')" onmouseup="send('-;')"><span class="sub">:</span>;</div>
-    <div class="key" onmousedown="send('+\'')" onmouseup="send('-\'')"><span class="sub">"</span>'</div>
-    <div class="key mod u2-25" onmousedown="send('+RETURN')" onmouseup="send('-RETURN')">Enter</div>
+    <div class="key mod u1-75" onpointerdown="send('+CAPS_LOCK')" onpointerup="send('-CAPS_LOCK')">Caps Lock</div>
+    <div class="key" onpointerdown="send('+a')" onpointerup="send('-a')">A</div>
+    <div class="key" onpointerdown="send('+s')" onpointerup="send('-s')">S</div>
+    <div class="key" onpointerdown="send('+d')" onpointerup="send('-d')">D</div>
+    <div class="key" onpointerdown="send('+f')" onpointerup="send('-f')">F</div>
+    <div class="key" onpointerdown="send('+g')" onpointerup="send('-g')">G</div>
+    <div class="key" onpointerdown="send('+h')" onpointerup="send('-h')">H</div>
+    <div class="key" onpointerdown="send('+j')" onpointerup="send('-j')">J</div>
+    <div class="key" onpointerdown="send('+k')" onpointerup="send('-k')">K</div>
+    <div class="key" onpointerdown="send('+l')" onpointerup="send('-l')">L</div>
+    <div class="key" onpointerdown="send('+;')" onpointerup="send('-;')"><span class="sub">:</span>;</div>
+    <div class="key" onpointerdown="send('+\'')" onpointerup="send('-\'')"><span class="sub">"</span>'</div>
+    <div class="key mod u2-25" onpointerdown="send('+RETURN')" onpointerup="send('-RETURN')">Enter</div>
     <div class="sp-nav"></div>
     <div style="grid-column: span 12; visibility: hidden;"></div>
 
-    <div class="key mod u2-25" onmousedown="send('+LEFT_SHIFT')" onmouseup="send('-LEFT_SHIFT')">Shift</div>
-    <div class="key" onmousedown="send('+z')" onmouseup="send('-z')">Z</div>
-    <div class="key" onmousedown="send('+x')" onmouseup="send('-x')">X</div>
-    <div class="key" onmousedown="send('+c')" onmouseup="send('-c')">C</div>
-    <div class="key" onmousedown="send('+v')" onmouseup="send('-v')">V</div>
-    <div class="key" onmousedown="send('+b')" onmouseup="send('-b')">B</div>
-    <div class="key" onmousedown="send('+n')" onmouseup="send('-n')">N</div>
-    <div class="key" onmousedown="send('+m')" onmouseup="send('-m')">M</div>
-    <div class="key" onmousedown="send('+,')" onmouseup="send('-,')"><span class="sub">&lt;</span>,</div>
-    <div class="key" onmousedown="send('+.')" onmouseup="send('-.')"><span class="sub">&gt;</span>.</div>
-    <div class="key" onmousedown="send('+/')" onmouseup="send('-/')"><span class="sub">?</span>/</div>
-    <div class="key mod u2-75" onmousedown="send('+RIGHT_SHIFT')" onmouseup="send('-RIGHT_SHIFT')">Shift</div>
+    <div class="key mod u2-25" onpointerdown="send('+LEFT_SHIFT')" onpointerup="send('-LEFT_SHIFT')">Shift</div>
+    <div class="key" onpointerdown="send('+z')" onpointerup="send('-z')">Z</div>
+    <div class="key" onpointerdown="send('+x')" onpointerup="send('-x')">X</div>
+    <div class="key" onpointerdown="send('+c')" onpointerup="send('-c')">C</div>
+    <div class="key" onpointerdown="send('+v')" onpointerup="send('-v')">V</div>
+    <div class="key" onpointerdown="send('+b')" onpointerup="send('-b')">B</div>
+    <div class="key" onpointerdown="send('+n')" onpointerup="send('-n')">N</div>
+    <div class="key" onpointerdown="send('+m')" onpointerup="send('-m')">M</div>
+    <div class="key" onpointerdown="send('+,')" onpointerup="send('-,')"><span class="sub">&lt;</span>,</div>
+    <div class="key" onpointerdown="send('+.')" onpointerup="send('-.')"><span class="sub">&gt;</span>.</div>
+    <div class="key" onpointerdown="send('+/')" onpointerup="send('-/')"><span class="sub">?</span>/</div>
+    <div class="key mod u2-75" onpointerdown="send('+RIGHT_SHIFT')" onpointerup="send('-RIGHT_SHIFT')">Shift</div>
     <div class="sp-nav"></div>
     <div class="sp-none"></div>
-    <div class="key mod" onmousedown="send('+UP_ARROW')" onmouseup="send('-UP_ARROW')">↑</div>
+    <div class="key mod" onpointerdown="send('+UP_ARROW')" onpointerup="send('-UP_ARROW')">↑</div>
     <div class="sp-none"></div>
 
-    <div class="key mod u1-25" onmousedown="send('+LEFT_CTRL')" onmouseup="send('-LEFT_CTRL')">Ctrl</div>
-    <div class="key mod u1-25" onmousedown="send('+LEFT_ALT')" onmouseup="send('-LEFT_ALT')">Alt</div>
-    <div class="key mod u1-25" onmousedown="send('+LEFT_GUI')" onmouseup="send('-LEFT_GUI')">Win</div>
-    <div class="key u6-25" onmousedown="send('+SPACE')" onmouseup="send('-SPACE')"></div>
-    <div class="key mod u1-25" onmousedown="send('+RIGHT_GUI')" onmouseup="send('-RIGHT_GUI')">Win</div>
-    <div class="key mod u1-25" onmousedown="send('+RIGHT_ALT')" onmouseup="send('-RIGHT_ALT')">Alt</div>
-    <div class="key mod u1-25" onmousedown="send('+FN')" onmouseup="send('-FN')">Fn</div>
-    <div class="key mod u1-25" onmousedown="send('+RIGHT_CTRL')" onmouseup="send('-RIGHT_CTRL')">Ctrl</div>
+    <div class="key mod u1-25" onpointerdown="send('+LEFT_CTRL')" onpointerup="send('-LEFT_CTRL')">Ctrl</div>
+    <div class="key mod u1-25" onpointerdown="send('+LEFT_ALT')" onpointerup="send('-LEFT_ALT')">Alt</div>
+    <div class="key mod u1-25" onpointerdown="send('+LEFT_GUI')" onpointerup="send('-LEFT_GUI')">Win</div>
+    <div class="key u6-25" onpointerdown="send('+SPACE')" onpointerup="send('-SPACE')"></div>
+    <div class="key mod u1-25" onpointerdown="send('+RIGHT_GUI')" onpointerup="send('-RIGHT_GUI')">Win</div>
+    <div class="key mod u1-25" onpointerdown="send('+RIGHT_ALT')" onpointerup="send('-RIGHT_ALT')">Alt</div>
+    <div class="key mod u1-25" onpointerdown="send('+FN')" onpointerup="send('-FN')">Fn</div>
+    <div class="key mod u1-25" onpointerdown="send('+RIGHT_CTRL')" onpointerup="send('-RIGHT_CTRL')">Ctrl</div>
     <div class="sp-nav"></div>
-    <div class="key mod" onmousedown="send('+LEFT_ARROW')" onmouseup="send('-LEFT_ARROW')">←</div>
-    <div class="key mod" onmousedown="send('+DOWN_ARROW')" onmouseup="send('-DOWN_ARROW')">↓</div>
-    <div class="key mod" onmousedown="send('+RIGHT_ARROW')" onmouseup="send('-RIGHT_ARROW')">→</div>
+    <div class="key mod" onpointerdown="send('+LEFT_ARROW')" onpointerup="send('-LEFT_ARROW')">←</div>
+    <div class="key mod" onpointerdown="send('+DOWN_ARROW')" onpointerup="send('-DOWN_ARROW')">↓</div>
+    <div class="key mod" onpointerdown="send('+RIGHT_ARROW')" onpointerup="send('-RIGHT_ARROW')">→</div>
 </div>
 
 <script>
