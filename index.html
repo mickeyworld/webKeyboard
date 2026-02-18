@@ -11,36 +11,67 @@
             --key-accent: #d43f33;  /* Esc */
             --text: #ffffff;
             --sub: #aaaaaa;
-            --gap: 5px;
+            --gap: 3px; /* スマホ用に隙間を少し狭く調整 */
         }
         body {
             background: #0d0d0d; color: var(--text); font-family: 'Segoe UI', sans-serif;
-            display: flex; flex-direction: column; align-items: center; padding: 30px; margin: 0;
-            min-width: 1100px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 0; margin: 0;
+            width: 100vw; height: 100vh;
+            overflow: hidden; /* スクロールを禁止して操作性を向上 */
         }
-        .status-bar { width: 1000px; display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 13px; }
-        #connectBtn { background: #333; border: 1px solid #555; color: white; padding: 6px 15px; border-radius: 4px; cursor: pointer; }
 
-        /* キーボード筐体 */
+        /* キーボード全体のコンテナ（回転の基準点） */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        /* 縦画面（Portrait）のときだけ90度回転させる */
+        @media (orientation: portrait) {
+            .container {
+                transform: rotate(90deg);
+                transform-origin: center;
+                width: 100vh; /* 縦横入れ替え */
+                height: 100vw;
+            }
+        }
+
+        .status-bar { 
+            width: 95%; 
+            display: flex; 
+            justify-content: space-between; 
+            margin-bottom: 10px; 
+            font-size: 11px; 
+        }
+
+        /* キーボード筐体: 画面幅に合わせてスケーリング */
         .k8-board {
-            background: var(--case); padding: 20px; border-radius: 12px;
+            background: var(--case); 
+            padding: 10px; 
+            border-radius: 8px;
             display: grid;
-            grid-template-columns: repeat(80, 12px); /* 12px単位で緻密に幅を管理 */
+            grid-template-columns: repeat(80, 1fr); /* 12px固定ではなく、画面幅に追従 */
             gap: var(--gap);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            width: 98vw; /* 画面端まで使い切る */
+            max-width: 1200px;
         }
 
         /* 共通キー設定 */
         .key {
-            background: var(--key-main); border-radius: 6px;
+            background: var(--key-main); border-radius: 4px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            font-size: 11px; font-weight: 600; height: 52px; cursor: pointer; user-select: none;
-            grid-column: span 4; /* 基本 1U = 4ユニット */
-            border-bottom: 3px solid #1a1a1a; transition: 0.05s;
-            touch-action: manipulation; /* スマホでのズーム防止 */
+            font-size: 9px; font-weight: 600; 
+            height: 8vw; /* 高さを画面幅に対して可変にする */
+            max-height: 50px;
+            cursor: pointer; user-select: none;
+            grid-column: span 4;
+            border-bottom: 2px solid #1a1a1a;
+            touch-action: manipulation;
         }
-        .key:active { transform: translateY(2px); border-bottom-width: 1px; background: #555; }
-        .key span.sub { font-size: 9px; color: var(--sub); margin-bottom: 2px; }
 
         /* 特殊キーの幅（1U = 4ユニット基準） */
         .u1-25 { grid-column: span 5; }  /* Ctrl, Win, Alt... */
