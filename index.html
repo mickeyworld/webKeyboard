@@ -53,7 +53,7 @@
             padding: 10px; 
             border-radius: 8px;
             display: grid;
-            grid-template-columns: repeat(80, 1fr); /* 12px固定ではなく、画面幅に追従 */
+            grid-template-columns: repeat(76, 1fr); /* 12px固定ではなく、画面幅に追従 */
             gap: var(--gap);
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             width: 98vw; /* 画面端まで使い切る */
@@ -91,7 +91,6 @@
         .sp-f-f4-f5 { grid-column: span 2; }
         .sp-f-f8-f9 { grid-column: span 2; }
         .sp-nav { grid-column: span 4; } /* メインとナビゲーションの間の大きな隙間 */
-        .sp-nav-right { grid-column: span 4; } /* ナビゲーションの右の大きな隙間 */
         .sp-none { grid-column: span 4; visibility: hidden; } /* アローキー周りの空き */
     </style>
 </head>
@@ -123,7 +122,6 @@
     <div class="key mod" onpointerdown="send('+PRINT_SCREEN')" onpointerup="send('-PRINT_SCREEN')">📸</div>
     <div class="key mod" onpointerdown="send('+SL')" onpointerup="send('-SL')">🎤</div>
     <div class="key mod" onpointerdown="send('+LIGHT')" onpointerup="send('-LIGHT')">💡</div>
-    <div class="sp-nav-right"></div>
 
     <div class="key mod" onpointerdown="send('+\`')" onpointerup="send('-\`')"><span class="sub">~</span>`</div>
     <div class="key" onpointerdown="send('+1')" onpointerup="send('-1')"><span class="sub">!</span>1</div>
@@ -143,7 +141,6 @@
     <div class="key mod" onpointerdown="send('+INSERT')" onpointerup="send('-INSERT')">Ins</div>
     <div class="key mod" onpointerdown="send('+HOME')" onpointerup="send('-HOME')">Home</div>
     <div class="key mod" onpointerdown="send('+PAGE_UP')" onpointerup="send('-PAGE_UP')">PgUp</div>
-    <div class="sp-nav-right"></div>
     
     <div class="key mod u1-5" onpointerdown="send('+TAB')" onpointerup="send('-TAB')">Tab</div>
     <div class="key" onpointerdown="send('+q')" onpointerup="send('-q')">Q</div>
@@ -163,7 +160,6 @@
     <div class="key mod" onpointerdown="send('+DELETE')" onpointerup="send('-DELETE')">Del</div>
     <div class="key mod" onpointerdown="send('+END')" onpointerup="send('-END')">End</div>
     <div class="key mod" onpointerdown="send('+PAGE_DOWN')" onpointerup="send('-PAGE_DOWN')">PgDn</div>
-    <div class="sp-nav-right"></div>
 
     <div class="key mod u1-75" onpointerdown="send('+CAPS_LOCK')" onpointerup="send('-CAPS_LOCK')">Caps Lock</div>
     <div class="key" onpointerdown="send('+a')" onpointerup="send('-a')">A</div>
